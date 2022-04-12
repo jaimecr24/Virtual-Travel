@@ -2,7 +2,9 @@
 
 Para clonar el proyecto: "git clone --recurse-submodules <url> <target_directory>"
   
-Una vez clonado ejecutar "docker-compose up -d"
+Una vez clonado se deben construir los ficheros jar de cada aplicación, ejecutando "mvn package" en el directorio raíz de cada una
+  
+Después ejecutar "docker-compose up -d"
 Se crearán los siguientes contenedores:
   - zookeeper
   - kafka
