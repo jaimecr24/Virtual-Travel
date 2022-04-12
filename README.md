@@ -18,7 +18,8 @@ Se crearán los siguientes contenedores:
   - backweb-2 (aplicación)
   
 Una vez creados los tópicos, se puede eliminar el contenedor init-kafka
-zookeeper es accesible desde el exterior en el puerto 22181 y kafka en el 29092
+
+zookeeper es accesible desde el exterior en el puerto 22181 y kafka en el 29092.
 Para eliminar este acceso, simplemente eliminar el mapeo de puertos de kafka y zookeeper en docker-compose.yml
   
 Se puede acceder a las aplicaciones en los siguientes puertos:
