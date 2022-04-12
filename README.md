@@ -108,7 +108,23 @@ API BACKEMPRESA:
   
     Reenvía un correo. Entrada:
     Auth con token válido.
-    CorreoInputDto { "ciudadDestino":"string", "email":"string", "fechaReserva":"yyyy-MM-dd", "horaReserva":0 }
+    CorreoInputDto { "ciudadDestino":"string", "email":"string", "fechaReserva":"yyyy-MM-dd", "horaReserva":0 } (body)
     Salida: ReservaOutputDto con los datos de la reserva | 403 si el token no es válido.
+  
+  POST /api/v0/reserva
+  
+    Crea directamente una reserva en la base de datos de backempresa. Entrada:
+    Auth con token válido.
+    ReservaInputDto { "idDestino":"string(3)", "nombre":"string", "apellido":"string", "telefono":"string", "email":"string", "fechaReserva":"yyyy-MM-dd", "horaSalida":0 } (body)
+    Salida: ReservaOutputDto | 403 si el token no es válido.
+  
+  GET /api/v0/plazas/{destino}
+  
+    Obtiene el número de plazas libres para un destino. Entrada:
+    Auth con token válido.
+    destino: <string> (path)
+    fecha: <string> (param - requerido - formato ddMMYYYY)
+    hora: <string> (param - requerido - formato 00)
+    Salida: plazas (Integer) | 403 si el token no es válido.
   
   
