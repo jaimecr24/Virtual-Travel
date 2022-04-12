@@ -1,5 +1,7 @@
 # Virtual-Travel
 
+Backend de una página web para la agencia de autobuses ‘VIRTUAL-TRAVEL’. Las aplicaciones incluyen un juego de datos inicial para pruebas. Se permite reservar para viajes a Valencia, Madrid, Barcelona y Bilbao. Las horas de salida de los autobuses son: 8h, 12h, 16h y 20h. Sólo se pueden crear reservas para mayo del 2022.
+
 Para clonar el proyecto: "git clone --recurse-submodules <url> <target_directory>"
   
 Una vez clonado se deben construir los ficheros jar de cada aplicación, ejecutando "mvn package" en el directorio raíz de cada una
@@ -36,7 +38,6 @@ Se puede acceder a las aplicaciones en los siguientes puertos:
     ReservaInputDto { "idDestino":"string(3)", "nombre":"string", "apellido":"string", "telefono":"string", "email":"string", "fechaReserva":"yyyy-MM-dd", "horaSalida": 0}
     idDestino: valores posibles: "VAL","MAD","BIL","BAR"
     Salida: ReservaOutputDto
-    Inicialmente se registran en la base de datos autobuses para cada día del mayo del 2022, a las 8h, 12h, 16h y 20h
   
   POST /api/v0/login
   
@@ -45,3 +46,25 @@ Se puede acceder a las aplicaciones en los siguientes puertos:
     password: <string> (header)
     Salida: <string> (token)
     Usuario y contraseña disponible para pruebas: "usuario1:123456"
+  
+  GET /api/v0/reserva/{ciudadDestino}
+  
+    Permite consultar la reservas realizadas para un destino. Entrada:
+    ciudadDestino (path)
+    token (body - texto simple)
+    fechaInferior (param - requerido - string con formato ddMMyyyy)
+    fechaSuperior (param - no requerido)
+    horaInferior (param - no requerido - string con formato 00)
+    horaSuperior (param - no requerido)
+    Salida: Lista de ReservaOutputDto | Si el token no es válido devuelve 403
+
+  GET /api/v0/disponible/{destino}
+  
+    Permite consultar las plazas disponibles para un destino. Entrada:
+    destino (path)
+    fechaInferior (param - requerido - string con formato ddMMyyyy)
+    fechaSuperior (param - no requerido)
+    horaInferior (param - no requerido - string con formato 00)
+    horaSuperior (param - no requerido)
+    Salida: Lista de ReservaDisponibleOutputDto { "ciudadDestino":"string", "fechaReserva":"string", "horaReserva":0, "plazasLibres":0 }
+  
