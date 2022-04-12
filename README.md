@@ -30,7 +30,7 @@ Se puede acceder a las aplicaciones en los siguientes puertos:
   - backweb-2: localhost:8091
   
  
- API BACKWEB:
+API BACKWEB:
   
   POST /api/v0/reserva
   
@@ -67,4 +67,48 @@ Se puede acceder a las aplicaciones en los siguientes puertos:
     horaInferior (param - no requerido - string con formato 00)
     horaSuperior (param - no requerido)
     Salida: Lista de ReservaDisponibleOutputDto { "ciudadDestino":"string", "fechaReserva":"string", "horaReserva":0, "plazasLibres":0 }
+  
+API BACKEMPRESA:
+  
+  POST /api/v0/login
+
+    Obtiene un token si los datos son correctos. Entrada:
+    user: <string> (header)
+    password: <string> (header)
+    Salida: <string> (token)
+    Usuario y contraseña disponible para pruebas: "usuario1:123456"  
+  
+  GET /api/v0/token/{token}
+  
+    Comprueba la validez de un token. Entrada:
+    token: <string> (path)
+    Salida: 200 si es válido, sino 403.
+  
+  GET /api/v0/correos
+  
+    Obtiene la lista de reservas (correos) enviados. Entrada:
+    Auth con token válido.
+    ciudadDestino: <string> (param - requerido)
+    fechaInferior (param - requerido - string con formato ddMMyyyy)
+    fechaSuperior (param - no requerido)
+    horaInferior (param - no requerido - string con formato 00)
+    horaSuperior (param - no requerido)
+    Salida: Lista de ReservaOutputDto | Si el token no es válido devuelve 403
+  
+  GET /api/v0/reservas
+  
+    Obtiene la lista de reservas para un destino, fecha y hora concretas. Entrada:
+    Auth con token válido.
+    ciudadDestino: <string> (param - requerido)
+    fecha (param - requerido - string con formato ddMMyyyy)
+    hora (param - requerido - string con formato 00)
+    Salida: Lista de ReservaOutputDto | Si el token no es válido devuelve 403
+  
+  PUT /api/v0/correos
+  
+    Reenvía un correo. Entrada:
+    Auth con token válido.
+    CorreoInputDto { "ciudadDestino":"string", "email":"string", "fechaReserva":"yyyy-MM-dd", "horaReserva":0 }
+    Salida: ReservaOutputDto con los datos de la reserva | 403 si el token no es válido.
+  
   
