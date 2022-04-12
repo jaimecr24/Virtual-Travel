@@ -1,0 +1,6 @@
+[submodule "backempresa"]
+	path = backempresa
+	url = https://github.com/jaimecr24/Virtual-Travel-backempresa.git
+[submodule "backweb"]
+	path = backweb
+	url = https://github.com/jaimecr24/Virtual-Travel-backweb.git
