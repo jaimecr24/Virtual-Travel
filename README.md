@@ -4,7 +4,7 @@ Backend de una página web para la agencia de autobuses ‘VIRTUAL-TRAVEL’. La
 
 Para clonar el proyecto: "git clone --recurse-submodules <url> <target_directory>"
   
-Una vez clonado se deben construir los ficheros jar de cada aplicación, ejecutando "mvn package" en el directorio raíz de cada una
+Una vez clonado se deben construir los ficheros jar de cada aplicación, ejecutando "mvn package -DskipTests=true" en el directorio raíz de cada una (al no estar activo todavía el servidor de kafka, los tests fallan)
   
 Después situarse en el directorio donde está "docker-compose.yml" y ejecutar "docker-compose up -d"
 
