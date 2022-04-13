@@ -51,8 +51,8 @@ services:
       POSTGRES_PASSWORD: contrasena
       POSTGRES_DB: reservas
 
-  pg_backweb:
-    container_name: pg_backweb
+  pg_backweb-1:
+    container_name: pg_backweb-1
     image: postgres
     environment:
       POSTGRES_USER: postgres
@@ -73,8 +73,10 @@ services:
     build:
       context: .
       dockerfile: backempresa\Dockerfile
+    image: backempresa
     environment:
       - server.port=8085
+      - kafkaGroup=backempresa
     ports:
       - "8085:8085"
     depends_on:
@@ -84,38 +86,40 @@ services:
       - kafka
       - pg_backempresa
 
-  backweb:
-    container_name: backweb
+  backweb-1:
+    container_name: backweb-1
     build:
       context: .
       dockerfile: backweb\Dockerfile
+    image: backweb
     environment:
       - server.port=8090
       - empresaport=8085
-      - datahost=pg_backweb
+      - datahost=pg_backweb-1
+      - kafkaGroup=backweb-1
     ports:
       - "8090:8090"
     depends_on:
       - init-kafka
-      - pg_backweb
+      - pg_backweb-1
     links:
       - kafka
-      - pg_backweb
+      - pg_backweb-1
 
   backweb-2:
     container_name: backweb-2
-    build:
-      context: .
-      dockerfile: backweb\Dockerfile
+    image: backweb
     environment:
       - server.port=8091
       - empresaport=8085
       - datahost=pg_backweb-2
+      - kafkaGroup=backweb-2
     ports:
       - "8091:8091"
     depends_on:
       - init-kafka
       - pg_backweb-2
+      - backweb-1
     links:
       - kafka
       - pg_backweb-2
